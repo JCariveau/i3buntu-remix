@@ -1,16 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 #------------------------------------------------------------------#
 #                          INSTALL i3BUNTU                         #
 #------------------------------------------------------------------#
-
 
 ###### Place the default wallpaper in $HOME directory
 cp wallpaper.jpg ~/.wallpaper.jpg
 
 ###### Setup Ubuntu main and unofficial repositories as well as
 ###### other repositories which will simplify further installations
-cp -f sources.list ~/.sources.list
+# cp -f sources.list ~/.sources.list
 
 ###### Update to the last package lists
 apt-get update # To get the latest package lists
@@ -21,12 +20,12 @@ apt-get install -y ubuntu-drivers-common
 apt-get install -y ubuntu-docs
 apt-get install -y ttf-ubuntu-font-family
 apt-get install -y libnm-gtk-common
-apt-get install -y ubuntu-wallpapers ubuntu-wallpapers-xenial
+apt-get install -y ubuntu-wallpapers
 apt-get install -y openssh-client
-apt-get install -y libstartup-notification0 upstart
+apt-get install -y libstartup-notification0
 apt-get install -y evince evince-common
 apt-get install -y lightdm
-apt-get install -y antoconf automake
+apt-get install -y autoconf automake
 apt-get install -y x11-xserver-utils
 apt-get install -y arandr
 apt-get install -y pavucontrol
@@ -60,8 +59,7 @@ apt-get install -y rofi compton
 apt-get install -y gnome-terminal
 apt-get install -y gedit
 apt-get install -y git
-apt-get install -y i3 i3-wm i3blocks i3lock i3status
-apt-get install -y xserver-xorg-video-intel
+apt-get install -y i3 i3-wm i3blocks i3lock i3bar i3status i3pystatus bumblebee-status polybar
 apt-get install -y acpi-support
 apt-get install -y apport-gtk
 apt-get install -y cups cups-bsd cups-client cups-filters
@@ -117,21 +115,9 @@ apt-get upgrade -y
 apt-get install -y fontconfig-infinality
 
 ###### Get and install playerctl
-wget 'https://github.com/acrisci/playerctl/releases/download/v0.5.0/playerctl-0.5.0_amd64.deb'
-dpkg -i playerctl-0.5.0_amd64.deb
-rm -rf playerctl-0.5.0_amd64.deb
-
-###### Remove old versions of the Arc theme
-rm -rf /usr/share/themes/{Arc,Arc-Darker,Arc-Dark}
-rm -rf ~/.local/share/themes/{Arc,Arc-Darker,Arc-Dark}
-rm -rf ~/.themes/{Arc,Arc-Darker,Arc-Dark}
-
-###### Get and install the latest Arc theme
-wget http://download.opensuse.org/repositories/home:Horst3180/xUbuntu_16.04/Release.key
-apt-key add - < Release.key
-sh -c "echo 'deb http://download.opensuse.org/repositories/home:/Horst3180/xUbuntu_16.04/ /' >> /etc/apt/sources.list.d/arc-theme.list"
-apt-get update
-apt-get install -y arc-theme
+wget 'https://github.com/altdesktop/playerctl/releases/download/v2.4.1/playerctl-2.4.1_amd64.deb'
+dpkg -i playerctl-2.4.1_amd64.deb
+rm -rf playerctl-2.4.1_amd64.deb
 
 ###### Make .fonts directory if not already available
 mkdir ~/.fonts
@@ -164,7 +150,7 @@ cp -f ~/i3buntu-master/configs/lightdm-gtk-greeter.conf /etc/lightdm/lightdm-gtk
 cp -f ~/i3buntu-master/configs/i3/config ~/.config/i3/config
 
 ###### Set appropriate user permissions
-chown $(logname):$(logname) -R /home/$(logname)/
-chmod g+s /home/$(logname)/
-setfacl -d -m g::rwx /home/$(logname)/
-setfacl -d -m o::rx /home/$(logname)/
+chown "$(logname)":"$(logname)" -R /home/"$(logname)"/
+chmod g+s /home/"$(logname)"/
+setfacl -d -m g::rwx /home/"$(logname)"/
+setfacl -d -m o::rx /home/"$(logname)"/

@@ -22,11 +22,11 @@ pid=$!
 
 #your task here
 
-for i in `seq 1 100`;
+for i in $(seq 1 100);
 do
-    progressbar $i
+    progressbar "$i"
     sleep 0.1
 done
 
 # kill the spinner task
-kill $pid > /dev/null 2>&1 \n
+kill $pid > /dev/null 2>&1
